@@ -31,7 +31,7 @@ services:
     environment:
       #      MYSQL_USER: admin
       #      MYSQL_PASSWORD: admin
-      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_ROOT_PASSWORD: ${PASSWORD_DB}
       MYSQL_ALLOW_EMPTY_PASSWORD: yes
       MYSQL_ROOT_HOST: '%'
     #      MYSQL_DATABASE: personal_site
