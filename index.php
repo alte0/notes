@@ -1,3 +1,8 @@
 <?php
-var_dump($_SERVER);
-phpinfo();
+
+require 'functions.php';
+require 'Database.php';
+require 'Response.php';
+require 'router.php';
+
+
