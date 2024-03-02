@@ -1,0 +1,5 @@
+*.idea
+.docker/volume/db
+vendor
+compilation_cache/
+logs

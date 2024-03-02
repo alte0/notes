@@ -1,0 +1,53 @@
+version: "3.8"
+
+services:
+  php-service:
+    build:
+      context: ./php
+#    user: ${USER_ID}:${GROUP_ID}
+    container_name: php_${PROJECT_NAME}
+    environment:
+      COMPOSER_CACHE_DIR: /tmp/composer-cache
+    ports:
+      - '9999:8080'
+    networks:
+      - localnet
+    volumes:
+      - '../../:/app'
+      - './runtime/composer-cache:/tmp/composer-cache'
+      - './php/xdebug.ini:/usr/local/etc/php/xdebug.ini'
+    depends_on:
+      - db-service
+
+  db-service:
+    build:
+      context: ./db
+    container_name: db_${PROJECT_NAME}
+    restart: unless-stopped
+    command:
+      --lower_case_table_names=1
+    ports:
+      - '5432:3306'
+    environment:
+      #      MYSQL_USER: admin
+      #      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+      MYSQL_ROOT_HOST: '%'
+    #      MYSQL_DATABASE: personal_site
+    networks:
+      - localnet
+    volumes:
+      - '/tmp/dc-volume/db:/var/lib/mysql'
+    expose:
+      - 3306
+      - 33060
+
+networks:
+  localnet:
+    name: localnet_${PROJECT_NAME}
+    driver: bridge
+#    ipam:
+#      driver: default
+#      config:
+#        - subnet: 192.168.220.0/20
