@@ -11,4 +11,5 @@ else
     echo 'GROUP_ID='$(id -g) >> "$file"
     echo '#db' >> "$file"
     echo 'PASSWORD_DB=''' >> "$file"
+    echo 'NAME_DB=myapp' >> "$file"
 fi

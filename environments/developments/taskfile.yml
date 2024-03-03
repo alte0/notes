@@ -7,6 +7,8 @@ dotenv: ['.env']
 
 vars:
   PROJECT_NAME: $PROJECT_NAME
+  NAME_DB: $NAME_DB
+  PASSWORD_DB: $PASSWORD_DB
   COMPOSE_COMMAND: compose --project-name {{.PROJECT_NAME}}
 
 tasks:
@@ -49,9 +51,9 @@ tasks:
     desc: Build development containers
     cmd: docker {{.COMPOSE_COMMAND}} stop {{.CLI_ARGS}}
 
-  cli:
-    desc: Open application shell
-    cmd: docker exec -it {{.PROJECT_NAME}}-php sh
+#  cli:
+#    desc: Open application shell
+#    cmd: docker exec -it {{.PROJECT_NAME}}-php sh
 
   composer:
     desc: Run composer
@@ -72,3 +74,11 @@ tasks:
   create-env:
     desc: Create .env file
     cmd: ./create-env.sh
+
+  dc-db-dump:
+    desc: Creating database dumps
+    cmd: docker exec db_{{.PROJECT_NAME}} sh -c 'exec mysqldump '{{.NAME_DB}}' -uroot -p"{{.PASSWORD_DB}}"' > ./db/database.sql
+
+  dc-db-restore:
+    desc: Restoring data from dump files. You add `{{.NAME_DB}} php2;` in dump file.
+    cmd: docker exec -i db_{{.PROJECT_NAME}} sh -c 'exec mysql -uroot -p"{{.PASSWORD_DB}}"' < ./db/database.sql
