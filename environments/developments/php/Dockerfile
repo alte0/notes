@@ -17,4 +17,5 @@ RUN mv $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini
 
 WORKDIR /app
 
-CMD php -S 0.0.0.0:8080 index.php
+#CMD php -S 0.0.0.0:8080 index.php
+CMD php -S 0.0.0.0:8080 -t public

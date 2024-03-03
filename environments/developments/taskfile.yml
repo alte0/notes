@@ -62,10 +62,6 @@ tasks:
 #  cli:
 #    desc: Open application shell
 #    cmd: docker exec -it {{.PROJECT_NAME}}-php-fpm-1 sh
-#
-#  composer:
-#    desc: Run composer
-#    cmd: docker {{.COMPOSE_COMMAND}} run php-fpm composer {{.CLI_ARGS}}
 
 #  yii:
 #    desc: Run application console command
