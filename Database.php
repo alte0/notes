@@ -2,8 +2,8 @@
 
 class Database
 {
-    public $connection;
-    public $statement;
+    public \PDO $connection;
+    public \PDOStatement $statement;
 
     public function __construct($config, $username = 'root', $password = '')
     {
